@@ -1,11 +1,11 @@
 # Carytown Massage - Deno + HTMX
 
-A modern recreation of the Carytown Massage website using Deno as the backend and HTMX for frontend interactivity.
+A modern recreation of the Carytown Massage website using **pure Deno** (no external dependencies) as the backend and **HTMX** for frontend interactivity.
 
 ## Stack
 
-- **Backend**: Deno with Oak framework
-- **Frontend**: Pure HTML/CSS with HTMX for interactivity
+- **Backend**: Deno with `Deno.serve()` (zero external dependencies)
+- **Frontend**: Pure HTML/CSS with HTMX
 - **Styling**: Custom CSS with design system variables
 - **Maps**: Google Maps API integration
 - **Analytics**: Google Analytics (gtag)
@@ -14,7 +14,7 @@ A modern recreation of the Carytown Massage website using Deno as the backend an
 
 ```
 carytown-massage-deno/
-├── server.ts                 # Main Deno server
+├── server.ts                 # Main Deno server (no dependencies)
 ├── deno.json                 # Deno configuration
 ├── public/
 │   ├── css/
@@ -33,25 +33,30 @@ carytown-massage-deno/
 
 ## Features
 
+- **Zero Dependencies**: Pure Deno with no external frameworks
 - **Responsive Design**: Mobile-first approach with breakpoints at 600px and 1000px
-- **Mobile Menu**: HTMX-powered toggle menu for mobile navigation
+- **Mobile Menu**: JavaScript-powered toggle menu for mobile navigation
 - **Google Maps**: Embedded map in footer showing business location
 - **Service Pages**: Individual pages for Swedish, Therapeutic, and Sports massage
 - **Gift Cards**: Link to Square gift card purchasing
 - **Privacy Policy**: Full privacy policy page
-- **SEO**: Meta tags and proper HTML structure
+- **SEO Ready**: Meta tags and proper HTML structure
 
 ## Setup
 
 ### Prerequisites
 
-- Deno 1.40+ installed
+- Deno 1.40+ installed ([https://deno.land](https://deno.land))
 
 ### Installation
 
-1. Clone or download the project
-2. Navigate to the project directory
-3. Ensure all images are in `public/images/`
+1. Clone the repository:
+```bash
+git clone https://github.com/davidbattiston/carytown-massage-deno.git
+cd carytown-massage-deno
+```
+
+2. Or download and extract the archive
 
 ### Running the Server
 
@@ -92,16 +97,22 @@ Typography:
 - `/gift-cards` - Gift card information
 - `/privacy-policy` - Privacy policy
 
-## Features
+## How It Works
 
-### Mobile Menu
-The mobile menu uses vanilla JavaScript to toggle visibility. HTMX is included for potential future enhancements.
+### Server Architecture
 
-### Google Maps
-The footer includes an embedded Google Map showing the business location at 3316 W Cary St, Richmond VA 23221.
+The server uses Deno's built-in `Deno.serve()` API:
 
-### Static Files
-All images and CSS are served from the `public/` directory with proper caching headers.
+1. **Request Handling**: Routes are matched using URL pattern matching
+2. **Template Rendering**: Each route calls a template function that returns HTML
+3. **Static Files**: CSS and images are served with proper MIME types
+4. **No Framework Overhead**: Direct HTTP handling with minimal abstraction
+
+### Frontend Interactivity
+
+- HTMX is included for potential future enhancements (currently used for mobile menu)
+- Mobile menu toggle uses vanilla JavaScript
+- All styling is pure CSS with no build step required
 
 ## Customization
 
@@ -117,6 +128,39 @@ Replace images in `public/images/` and update references in templates.
 ### Google Maps API Key
 Update the API key in `src/templates/layout.ts` (currently using a placeholder).
 
+## Deployment
+
+### Local Development
+```bash
+deno task dev
+```
+
+### Production Build
+No build step needed! Just run:
+```bash
+deno task start
+```
+
+### Deployment Options
+
+**Deno Deploy** (Recommended)
+```bash
+deno deploy
+```
+
+**Docker**
+```dockerfile
+FROM denoland/deno:latest
+WORKDIR /app
+COPY . .
+CMD ["deno", "run", "--allow-net", "--allow-read", "server.ts"]
+```
+
+**Any VPS/Server**
+- Install Deno
+- Clone the repository
+- Run `deno run --allow-net --allow-read server.ts`
+
 ## Browser Support
 
 - Chrome/Edge (latest)
@@ -124,6 +168,19 @@ Update the API key in `src/templates/layout.ts` (currently using a placeholder).
 - Safari (latest)
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
+## Performance
+
+- **Zero Build Step**: Deno runs TypeScript directly
+- **No Dependencies**: Faster startup, smaller memory footprint
+- **Static File Serving**: Efficient streaming of CSS and images
+- **Minimal Overhead**: Direct HTTP routing with no middleware layers
+
 ## License
 
 This project is for Carytown Massage business use.
+
+## Getting Help
+
+- Check the [Deno documentation](https://deno.land/manual)
+- Review the template files in `src/templates/` for examples
+- Inspect `server.ts` for routing logic
