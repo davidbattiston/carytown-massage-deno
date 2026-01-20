@@ -3,7 +3,7 @@ export function renderAbout(): string {
     <img alt="Relaxing candles with hot stones and towel" src="/images/hero-images/candles-and-stones.jpg">
   </div>
   <div class="container">
-    <h1>About</h1>
+    <h1>About Carytown Massage</h1>
     <h2>We focus on providing Richmond with massage services.</h2>
     <p>Carytown Massage will help you escape from today's erratic and busy life. Our qualified team of licensed massage therapists offers a fully tailored treatment that is suitable for each client's needs. Our experience enables us to create and deliver the right program for everyone. You can be confident that working with us will be easy and stress-free.</p>
     <p>Massage therapy helps you relax and rejuvenate to the fullest and is part of a profound, relaxing experience. At the beginning of every appointment, we focus on the source of the problem and develop a personalized treatment plan for future sessions. Our goal is to make the most from the massage therapy we offer and help you reach your health goals as fast as possible, leaving you feeling renewed and full of energy.</p>

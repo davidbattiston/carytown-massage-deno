@@ -1,19 +1,43 @@
-export function renderLayout(title: string, content: string): string {
-  return `<!DOCTYPE html>
+export function renderLayout(
+  title: string,
+  description: string,
+  content: string,
+): string {
+  return `
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${title} - Carytown Massage</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>${title} - Massage Richmond VA</title>
+    <meta
+        name="description"
+        content="${description}"
+    />
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9G83G1JX69"></script>
+
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- meta -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+
+    <!-- JSONLD -->
+  	<script type="application/ld+json">{"@context":"https://schema.org","@type":"HealthAndBeautyBusiness","@id":"https://carytownmassage.com","name":"Carytown Massage","description":"Massage therapy in Richmond, VA.","url":"https://carytownmassage.com","telephone":"+18044242607","address":{"@type":"PostalAddress","streetAddress":"3316 West Cary Street","addressLocality":"Richmond","addressRegion":"VA","postalCode":"23221","addressCountry":"US"},"geo":{"latitude":"37.55462875256322","longitude":"-77.48456310462822","@type":"GeoCoordinates"},"areaServed":[{"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","latitude":"37.55462875256322","longitude":"-77.48456310462822"},"geoRadius":"40000"}]} </script>
+
+    <!-- HTMX -->
+    <script src="/htmx.min.js"></script>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/zvd5hlr.css" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${Deno.env.get("GTAGKEY")}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-9G83G1JX69');
+        gtag('config', '${Deno.env.get("GTAGKEY")}');
     </script>
 </head>
 <body>
@@ -27,7 +51,8 @@ export function renderLayout(title: string, content: string): string {
 }
 
 function renderHeader(): string {
-  return `<header>
+  return `
+<header>
     <nav>
         <div class="logo-div">
             <a href="/">
@@ -109,7 +134,7 @@ function renderFooter(): string {
     </div>
 </footer>
 
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDummyKeyForNow"></script>
+<script loading=async defer src="https://maps.googleapis.com/maps/api/js?key=${Deno.env.get("MAPKEY")}"></script>
 <script>
     function initMap() {
         const mapStyle = [
